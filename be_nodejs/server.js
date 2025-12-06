@@ -1,5 +1,8 @@
 import express from "express"
 
+import { PrismaClient } from "@prisma/client"
+const model = new PrismaClient();
+
 const app = express()
 
 app.listen(8088)
@@ -8,17 +11,22 @@ app.get("/", (req, res) => {
     res.send("Đây là trang chủ API");
 })
 
-app.get("/get-product", (req, res) => {
-    let data = [{
-        id: 1,
-        name: "product 1"
-    },
-    {
-        id: 2,
-        name: "product 2"
-    }]
+app.get("/get-product", async (req, res) => {
+    
+    let data = await model.products.findMany();
+
     res.send(data);
 })
+ /*
+    CSDL: MySQL
+    Prisma v5 ORM
+   B1: yarn add prisma@5.17.0 @prisma/client@5.17.0
+   B2: yarn prisma init (npx prisma init)
+   B3: Sửa chuổi kết nối CSDL
+   B4: yarn prisma db pull
+   B5: yarn prisma generate
+ */
+
 
 // yarn init
 // yarn add express
@@ -32,3 +40,4 @@ app.get("/get-product", (req, res) => {
  5/ khởi chạy server (node server.js)
 
  */
+

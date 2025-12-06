@@ -1,0 +1,22 @@
+version: "3"
+services:
+  backend_nodejs:
+    build: . # docker build . -t img-node
+    # image: undertarke/devops01:1.0.0 # docker pull 
+    container_name: cons-node
+    env_file: .env
+    environment:
+      - DATABASE_URL=$DATABASE_URL
+    ports:
+      - 8088:8088
+    networks:
+      - demo_network
+
+networks:
+  demo_network:
+    external: true
+
+# docker-compose up -d
+# docker-compose down
+# docker-compose build
+      
