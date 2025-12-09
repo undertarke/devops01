@@ -1,0 +1,31 @@
+version: "3"
+services:
+  backend_nodejs:
+    build: ./be_nodejs
+    container_name: cons-node
+    env_file: ./be_nodejs/.env
+    environment:
+      - DATABASE_URL=$DATABASE_URL
+    ports:
+      - 3001:8088
+    networks:
+      - new_network
+  
+  react_build:
+    build: ./react-ops/build
+    container_name: cons-react
+    ports:
+      - 3002:80
+    networks:
+      - new_network
+
+  html_build:
+    build: ./root
+    container_name: cons-html
+    ports:
+      - 3003:80
+    networks:
+      - new_network
+
+networks:
+  new_network:
