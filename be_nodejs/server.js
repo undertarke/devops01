@@ -1,8 +1,5 @@
 import express from "express"
 
-import { PrismaClient } from "@prisma/client"
-const model = new PrismaClient();
-
 const app = express()
 
 app.listen(8088)
@@ -13,9 +10,7 @@ app.get("/", (req, res) => {
 
 app.get("/get-product", async (req, res) => {
     
-    let data = await model.products.findMany();
-
-    res.send(data);
+    process.exit(1);
 })
  /*
     CSDL: MySQL
