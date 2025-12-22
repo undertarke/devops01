@@ -1,0 +1,12 @@
+version: "3"
+services:
+  fe-reactjs:
+    container_name: fe-reactjs
+    ports:
+      - 5173:80
+    build: ./frontend/dist
+  be-nodejs:
+    container_name: be-nodejs
+    ports:
+      - 8800:8800
+    build: ./API
