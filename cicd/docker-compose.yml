@@ -1,0 +1,7 @@
+version: "3"
+services:
+  build-fe:
+    container_name: build-fe
+    build: .
+    ports:
+      - 3004:80
