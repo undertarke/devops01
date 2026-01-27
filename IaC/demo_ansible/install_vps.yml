@@ -1,0 +1,29 @@
+- name: Playbook demo
+  hosts: list_host
+  become: true
+
+  tasks:
+    - name: Cài docker
+      apt:
+        name: docker.io
+        state: present
+    
+    - name: Cài Git
+      apt:
+        name: git
+        state: present
+
+    - name: Cài docker-compose
+      shell: curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+    - name: Phân quyền docker-comopose
+      shell: chmod 755 /usr/local/bin/docker-compose
+
+    - name: Clone source về vps
+      git: 
+        repo: "https://token@github.com/undertarke/docker.git"
+        dest: /root/html
+        version: main
+
+    - name: Deployment
+      shell: cd /root/html && docker build . -t img-html && docker run -d -p 3001:80 --name cons-html img-html
